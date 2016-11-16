@@ -65,6 +65,9 @@ public class Paciente extends BaseModel {
     @Setter
     private String color;
 
+    @Getter
+    private String especie;
+
     /**
      * Sexo?
      */

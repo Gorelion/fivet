@@ -62,6 +62,15 @@ public class Persona extends BaseModel {
     @OrderBy("numero")
     private List<Paciente> pacientes;
 
+    @Getter
+    private String direccion;
+
+    @Getter
+    private Integer fijo;
+
+    @Getter
+    private String email;
+
     /**
      * Tipo de rol
      */
