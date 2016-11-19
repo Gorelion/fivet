@@ -131,7 +131,7 @@ public class TestEbeanBackendService {
        final Persona.Tipo tipo = Persona.Tipo.VETERINARIO;
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date(2016,11,17);
+        //Date date = new Date(2016,11,17);
 
         final Persona veterinario = Persona.builder()
                                     .nombre(nombre)
@@ -166,20 +166,16 @@ public class TestEbeanBackendService {
 
         final Paciente pacienteBack = backendService.getPaciente(12232);
         Assert.assertNotNull("Can't find Paciente", pacienteBack);
-        
+
     }
 
     @Test
     public void testExamen(){
 
         final Examen examen = Examen.builder()
-                .nombre("El nombre")
-                .resultado("El resultado")
+                .nombre("aaassseeeee")
                 .build();
-
         examen.insert();
-
     }
-
 
 }
