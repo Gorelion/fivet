@@ -1,5 +1,8 @@
 package cl.ucn.disc.isof.fivet.domain.service.ebean;
 
+import cl.ucn.disc.isof.fivet.domain.model.Control;
+import cl.ucn.disc.isof.fivet.domain.model.Examen;
+import cl.ucn.disc.isof.fivet.domain.model.Paciente;
 import cl.ucn.disc.isof.fivet.domain.model.Persona;
 import cl.ucn.disc.isof.fivet.domain.service.BackendService;
 import com.google.common.base.Stopwatch;
@@ -7,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.junit.runners.MethodSorters;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Clase de testing del {@link BackendService}.
@@ -65,6 +72,7 @@ public class TestEbeanBackendService {
     /**
      * Test de la persona
      */
+
     @Test
     public void testPersona() {
 
@@ -110,6 +118,66 @@ public class TestEbeanBackendService {
             Assert.assertNotNull("Can't find Persona", persona);
             Assert.assertEquals("Nombres distintos!", nombre, persona.getNombre());
         }
+
+    }
+
+
+    @Test
+    public void testControl(){
+
+       final String rut = "19034353-7";
+       final String nombre = "lufe";
+
+       final Persona.Tipo tipo = Persona.Tipo.VETERINARIO;
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date(2016,11,17);
+
+        final Persona veterinario = Persona.builder()
+                                    .nombre(nombre)
+                                    .rut(rut)
+                                    .password("12345")
+                                    .tipo(tipo)
+                                    .build();
+
+        veterinario.insert();
+
+        log.debug("persona to insert: {}", veterinario);
+        Assert.assertNotNull("Objeto sin id", veterinario.getId());
+
+       final Control control = Control.builder()
+               .peso(15.2)
+               .build();
+
+       control.insert();
+
+        log.debug("Control to insert: {}", control);
+        Assert.assertNotNull("Objeto sin id", control.getId());
+    }
+
+    @Test
+    public void testPaciente(){
+
+        final Paciente paciente = Paciente.builder()
+                .numero(12232)
+                .build();
+
+        paciente.insert();
+
+        final Paciente pacienteBack = backendService.getPaciente(12232);
+        Assert.assertNotNull("Can't find Paciente", pacienteBack);
+        
+    }
+
+    @Test
+    public void testExamen(){
+
+        final Examen examen = Examen.builder()
+                .nombre("El nombre")
+                .resultado("El resultado")
+                .build();
+
+        examen.insert();
 
     }
 

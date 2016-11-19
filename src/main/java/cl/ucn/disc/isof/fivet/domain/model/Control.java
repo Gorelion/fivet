@@ -1,3 +1,4 @@
+
 package cl.ucn.disc.isof.fivet.domain.model;
 
 import com.durrutia.ebean.BaseModel;
@@ -9,12 +10,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * Created by Aemeoereceiteo on 09/11/2016.
  */
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,7 +24,7 @@ import java.util.Date;
 public class Control extends BaseModel {
 
     @Getter
-    @NotNull
+    @Column
     private Date fecha;
 
     @Getter
@@ -52,11 +53,12 @@ public class Control extends BaseModel {
 
     @Getter
     @Column
-    private String id;
+    private String identificador;
 
     @Getter
     @Column
     private Persona veterinario;
 
-
 }
+
+

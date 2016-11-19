@@ -7,7 +7,9 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Clase que representa a un Paciente de la veterinaria.
@@ -27,6 +29,7 @@ public class Paciente extends BaseModel {
      */
     @Getter
     @Column
+    @NotNull
     private Integer numero;
 
     /**
@@ -56,6 +59,9 @@ public class Paciente extends BaseModel {
     /**
      * Sexo
      */
+    @Getter
+    @Setter
+    @Column
     private Sexo sexo;
 
     /**
@@ -66,7 +72,12 @@ public class Paciente extends BaseModel {
     private String color;
 
     @Getter
+    @Setter
     private String especie;
+
+    @Getter
+    @Setter
+    private List<Persona> personas;
 
     /**
      * Sexo?

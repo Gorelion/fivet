@@ -52,6 +52,7 @@ public class Persona extends BaseModel {
      */
     @Getter
     @NotNull
+    @Column
     private Tipo tipo;
 
     /**
@@ -63,12 +64,15 @@ public class Persona extends BaseModel {
     private List<Paciente> pacientes;
 
     @Getter
+    @Column
     private String direccion;
 
     @Getter
+    @Column
     private Integer fijo;
 
     @Getter
+    @Column
     private String email;
 
     /**
