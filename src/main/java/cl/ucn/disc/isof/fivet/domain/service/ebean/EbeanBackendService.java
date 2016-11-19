@@ -1,6 +1,7 @@
 package cl.ucn.disc.isof.fivet.domain.service.ebean;
 
 import cl.ucn.disc.isof.fivet.domain.model.Control;
+import cl.ucn.disc.isof.fivet.domain.model.Examen;
 import cl.ucn.disc.isof.fivet.domain.model.Paciente;
 import cl.ucn.disc.isof.fivet.domain.model.Persona;
 import cl.ucn.disc.isof.fivet.domain.service.BackendService;
@@ -43,8 +44,9 @@ public class EbeanBackendService implements BackendService {
 
         // config.addPackage("package.de.la.clase.a.agregar.en.el.modelo");
         config.addClass(BaseModel.class);
-
+        config.addClass(Control.class);
         config.addClass(Persona.class);
+        config.addClass(Examen.class);
         config.addClass(Persona.Tipo.class);
 
         config.addClass(Paciente.class);
@@ -154,6 +156,17 @@ public class EbeanBackendService implements BackendService {
      */
     @Override
     public void agregarControl(Control control, Integer numeroPaciente) {
+
+        Paciente paciente = this.ebeanServer.find(Paciente.class)
+                .where()
+                .eq("numero",numeroPaciente)
+                .findUnique();
+
+        List<Control> listaControles = paciente.getControles();
+        listaControles.add(control);
+
+        paciente.setControles(listaControles);
+        paciente.update();
 
     }
 

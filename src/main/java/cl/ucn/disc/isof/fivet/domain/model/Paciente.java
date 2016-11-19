@@ -79,6 +79,10 @@ public class Paciente extends BaseModel {
     @Setter
     private List<Persona> personas;
 
+    @Getter
+    @Setter
+    private List<Control> controles;
+
     /**
      * Sexo?
      */

@@ -122,6 +122,9 @@ public class TestEbeanBackendService {
     }
 
 
+    /**
+     * Test del control
+     */
     @Test
     public void testControl(){
 
@@ -155,6 +158,9 @@ public class TestEbeanBackendService {
         Assert.assertNotNull("Objeto sin id", control.getId());
     }
 
+    /**
+     * Test del paciente
+     */
     @Test
     public void testPaciente(){
 
@@ -169,13 +175,19 @@ public class TestEbeanBackendService {
 
     }
 
+    /**
+     * Test del examen
+     */
     @Test
     public void testExamen(){
 
-        final Examen examen = Examen.builder()
-                .nombre("aaassseeeee")
-                .build();
-        examen.insert();
+        {
+            final Examen examen = Examen.builder()
+                    .nombre("aaassseeeee")
+                    .build();
+            examen.insert();
+        }
+
     }
 
 }
