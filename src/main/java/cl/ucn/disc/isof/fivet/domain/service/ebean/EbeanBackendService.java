@@ -14,6 +14,7 @@ import com.avaje.ebean.config.ServerConfig;
 import com.durrutia.ebean.BaseModel;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -48,7 +49,6 @@ public class EbeanBackendService implements BackendService {
         config.addClass(Persona.class);
         config.addClass(Examen.class);
         config.addClass(Persona.Tipo.class);
-
         config.addClass(Paciente.class);
         config.addClass(Paciente.Sexo.class);
 
@@ -127,7 +127,7 @@ public class EbeanBackendService implements BackendService {
         return this.ebeanServer.find(Control.class)
                 .where()
                 .and(
-                        Expr.eq("veterinario.rut", this.getPersona(rutVeterinario).getRut())
+                        Expr.eq("veterinario.rut", rutVeterinario)
                         , Expr.eq("veterinario.tipo", Persona.Tipo.VETERINARIO)
                 )
                 .findList();
@@ -157,18 +157,26 @@ public class EbeanBackendService implements BackendService {
     @Override
     public void agregarControl(Control control, Integer numeroPaciente) {
 
-        Paciente paciente = this.ebeanServer.find(Paciente.class)
-                .where()
-                .eq("numero",numeroPaciente)
-                .findUnique();
-
+        Paciente paciente = this.getPaciente(numeroPaciente);
         List<Control> listaControles = paciente.getControles();
         listaControles.add(control);
-
-        paciente.setControles(listaControles);
         paciente.update();
-
     }
+
+    /**
+     * Retorna un examen desde el backend, según su identificador
+     * @param identificador que identifica a un examen como único
+     * @return El examen que ha sido localizado
+     */
+    public Control getControl(String identificador){
+        
+        return this.ebeanServer.find(Control.class)
+                .where()
+                .eq("identificador", identificador)
+                .findUnique();
+    }
+
+
 
     /**
      * Inicializa la base de datos

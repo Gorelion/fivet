@@ -14,6 +14,8 @@ import org.junit.runners.MethodSorters;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase de testing del {@link BackendService}.
@@ -128,34 +130,41 @@ public class TestEbeanBackendService {
     @Test
     public void testControl(){
 
-       final String rut = "19034353-7";
-       final String nombre = "lufe";
+        final String rut = "19.034.353-7";
+        final String nombre = "lufe";
+        final String password = "12345";
+        final Persona.Tipo tipo = Persona.Tipo.VETERINARIO;
 
-       final Persona.Tipo tipo = Persona.Tipo.VETERINARIO;
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        //Date date = new Date(2016,11,17);
 
         final Persona veterinario = Persona.builder()
-                                    .nombre(nombre)
-                                    .rut(rut)
-                                    .password("12345")
-                                    .tipo(tipo)
-                                    .build();
+                .rut(rut)
+                .nombre(nombre)
+                .tipo(tipo)
+                .password(password)
+                .build();
 
         veterinario.insert();
 
-        log.debug("persona to insert: {}", veterinario);
-        Assert.assertNotNull("Objeto sin id", veterinario.getId());
 
-       final Control control = Control.builder()
-               .peso(15.2)
-               .build();
+        final java.util.Date fecha = new java.util.Date();
+        final String identificador = "identi1";
 
-       control.insert();
+        //insertando control en backend
+        {
+            final Control control = Control.builder()
+                    .fecha(fecha)
+                    .identificador(identificador)
+                    .veterinario(veterinario)
+                    .build();
 
-        log.debug("Control to insert: {}", control);
-        Assert.assertNotNull("Objeto sin id", control.getId());
+            control.insert();
+        }
+
+        //Recuperando control de backend
+        {
+
+        }
+
     }
 
     /**
@@ -166,6 +175,7 @@ public class TestEbeanBackendService {
 
         final Paciente paciente = Paciente.builder()
                 .numero(12232)
+                .controles(new ArrayList<>())
                 .build();
 
         paciente.insert();
@@ -181,12 +191,53 @@ public class TestEbeanBackendService {
     @Test
     public void testExamen(){
 
+        final String nombreExamen = "Examen prueba";
+        final java.util.Date fechaExamen = new java.util.Date();
+        final String resultado = "Resultado prueba";
+
         {
             final Examen examen = Examen.builder()
-                    .nombre("aaassseeeee")
+                    .nombre(nombreExamen)
+                    .fecha(fechaExamen)
+                    .resultado(resultado)
                     .build();
             examen.insert();
         }
+
+
+    }
+
+    @Test
+    public void testAgregarControl(){
+
+        {
+            final Persona vet = Persona.builder()
+                    .rut("19.034.353-7")
+                    .nombre("Luis Felipe")
+                    .password("12345")
+                    .tipo(Persona.Tipo.VETERINARIO)
+                    .build();
+            final Control control = Control.builder()
+                    .fecha(new java.util.Date())
+                    .identificador("C1")
+                    .veterinario(vet)
+                    .build();
+
+            final Paciente paciente = Paciente.builder()
+                    .numero(123)
+                    .nombre("ito")
+                    .build();
+
+            vet.insert();
+            paciente.insert();
+            control.insert();
+
+            this.backendService.agregarControl(control,123);
+
+        }
+
+        final Paciente paciente = this.backendService.getPaciente(123);
+        log.debug("Paciente founded: {}", paciente);
 
     }
 

@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -62,6 +63,14 @@ public class Control extends BaseModel {
     @Getter
     @Column
     private String diagnostico;
+
+
+    @Getter
+    @Setter
+    @Column
+    @ManyToOne
+    private Paciente paciente;
+
 
     /**
      * Nota del control, opcional.

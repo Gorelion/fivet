@@ -4,11 +4,11 @@ import com.avaje.ebean.annotation.EnumValue;
 import com.durrutia.ebean.BaseModel;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -69,19 +69,24 @@ public class Paciente extends BaseModel {
      */
     @Getter
     @Setter
+    @Column
     private String color;
 
     @Getter
     @Setter
+    @Column
     private String especie;
 
     @Getter
     @Setter
-    private List<Persona> personas;
+    @Column
+    private List<Persona> personas = new LinkedList<>();
 
     @Getter
     @Setter
-    private List<Control> controles;
+    @Column
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Control> controles = new LinkedList<>();
 
     /**
      * Sexo?
