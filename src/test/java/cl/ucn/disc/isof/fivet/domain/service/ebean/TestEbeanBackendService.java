@@ -143,6 +143,7 @@ public class TestEbeanBackendService {
                 .password(password)
                 .build();
 
+
         veterinario.insert();
 
 
@@ -158,13 +159,20 @@ public class TestEbeanBackendService {
                     .build();
 
             control.insert();
+            log.debug("Control to insert: {}", control);
+            Assert.assertNotNull("Objeto sin id", control.getId());
         }
 
         //Recuperando control de backend
+
         {
-
+            final Control control = this.backendService.getControl(identificador);
+            log.debug("Control founded: {}", control);
+            Assert.assertNotNull("Can't find Control", control);
+            Assert.assertNotNull("Objeto sin id", control.getId());
+            Assert.assertEquals("identificadores deben ser iguales", "identi1", control.getIdentificador());
+            Assert.assertTrue("El control no lo ha hecho un veterinario!", control.getVeterinario().getTipo() == Persona.Tipo.VETERINARIO);
         }
-
     }
 
     /**

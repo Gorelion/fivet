@@ -60,6 +60,14 @@ public interface BackendService {
     void agregarControl(final Control control, final Integer numeroPaciente);
 
     /**
+     * Retorna un examen desde el backend, según su identificador
+     *
+     * @param identificador que identifica a un examen como único
+     * @return El examen que ha sido localizado
+     */
+    Control getControl(String identificador);
+
+    /**
      * Inicializa el backend.
      */
     void initialize();

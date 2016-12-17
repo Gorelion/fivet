@@ -91,6 +91,7 @@ public class Control extends BaseModel {
      */
     @Getter
     @Column
+    @ManyToOne
     private Persona veterinario;
 
 }

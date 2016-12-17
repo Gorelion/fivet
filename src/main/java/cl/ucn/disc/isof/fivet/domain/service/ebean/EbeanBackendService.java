@@ -165,11 +165,12 @@ public class EbeanBackendService implements BackendService {
 
     /**
      * Retorna un examen desde el backend, según su identificador
+     *
      * @param identificador que identifica a un examen como único
      * @return El examen que ha sido localizado
      */
-    public Control getControl(String identificador){
-        
+    public Control getControl(String identificador) {
+
         return this.ebeanServer.find(Control.class)
                 .where()
                 .eq("identificador", identificador)
