@@ -80,13 +80,13 @@ public class Paciente extends BaseModel {
     @Getter
     @Setter
     @Column
-    private List<Persona> personas = new LinkedList<>();
+    private List<Persona> personas;
 
     @Getter
     @Setter
     @Column
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Control> controles = new LinkedList<>();
+    private List<Control> controles;
 
     /**
      * Sexo?

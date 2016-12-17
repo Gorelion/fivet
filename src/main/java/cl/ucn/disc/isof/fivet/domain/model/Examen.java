@@ -49,4 +49,12 @@ public class Examen extends BaseModel {
     @Column
     private String resultado;
 
+    /**
+     * identificador del examen
+     */
+    @Getter
+    @NotNull
+    @Column
+    private String identificador;
+
 }

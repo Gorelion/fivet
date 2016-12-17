@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Clase de testing del {@link BackendService}.
@@ -199,19 +200,44 @@ public class TestEbeanBackendService {
     @Test
     public void testExamen(){
 
+        //se declaran los parametros de creacion del examen
         final String nombreExamen = "Examen prueba";
         final java.util.Date fechaExamen = new java.util.Date();
         final String resultado = "Resultado prueba";
+        final String identificador = "E1";
 
         {
+            //se crea el examen
             final Examen examen = Examen.builder()
                     .nombre(nombreExamen)
                     .fecha(fechaExamen)
                     .resultado(resultado)
+                    .identificador(identificador)
                     .build();
+            //se inserta el examen
             examen.insert();
         }
 
+        //se obtienen todos los examenes en la base de datos
+        final List<Examen> examenes = backendService.getExamenes();
+
+        //Debería haber solo 1 examen en la base de datos
+        Assert.assertTrue(examenes.size() == 1);
+
+        //se obtiene el unico examen que existe en la base de datos
+        {
+            //se obtiene el unico examen que existe en la base de datos
+            final Examen examen = backendService.getExamen(identificador);
+
+            //examen obtenido no puede ser null
+            Assert.assertTrue(examen != null);
+
+            final String idObtenido = examen.getIdentificador();
+
+            //el id obtenido debe ser igual al id original
+            Assert.assertEquals(identificador,idObtenido);
+        }
+        log.debug("Prueba de ingreso de examen exitosa.");
 
     }
 

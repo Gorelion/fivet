@@ -103,6 +103,17 @@ public class EbeanBackendService implements BackendService {
     }
 
     /**
+     * Obtiene el listado de los examenes.
+     *
+     * @return the {@link List} of {@link Paciente}
+     */
+    @Override
+    public List<Examen> getExamenes() {
+        return this.ebeanServer.find(Examen.class).findList();
+    }
+
+
+    /**
      * Obtiene un {@link Paciente} a partir de su numero de ficha.
      *
      * @param numeroPaciente de ficha.
@@ -164,10 +175,10 @@ public class EbeanBackendService implements BackendService {
     }
 
     /**
-     * Retorna un examen desde el backend, según su identificador
+     * Retorna un control desde el backend, según su identificador
      *
      * @param identificador que identifica a un examen como único
-     * @return El examen que ha sido localizado
+     * @return El control que ha sido localizado
      */
     public Control getControl(String identificador) {
 
@@ -177,6 +188,19 @@ public class EbeanBackendService implements BackendService {
                 .findUnique();
     }
 
+    /**
+     * Retorna un examen desde el backend, según su identificador
+     *
+     * @param identificador que identifica a un examen como único
+     * @return El examen que ha sido localizado
+     */
+    @Override
+    public Examen getExamen(String identificador) {
+        return this.ebeanServer.find(Examen.class)
+                .where()
+                .eq("identificador", identificador)
+                .findUnique();
+    }
 
 
     /**

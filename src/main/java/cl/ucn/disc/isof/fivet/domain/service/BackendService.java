@@ -1,6 +1,7 @@
 package cl.ucn.disc.isof.fivet.domain.service;
 
 import cl.ucn.disc.isof.fivet.domain.model.Control;
+import cl.ucn.disc.isof.fivet.domain.model.Examen;
 import cl.ucn.disc.isof.fivet.domain.model.Paciente;
 import cl.ucn.disc.isof.fivet.domain.model.Persona;
 
@@ -27,12 +28,21 @@ public interface BackendService {
     List<Paciente> getPacientes();
 
     /**
+     * Obtiene el listado de los examenes.
+     *
+     * @return the {@link List} of {@link Examen}
+     */
+    List<Examen> getExamenes();
+
+    /**
      * Obtiene un {@link Paciente} a partir de su numero de ficha.
      *
      * @param numeroPaciente de ficha.
      * @return the {@link Paciente}.
      */
     Paciente getPaciente(final Integer numeroPaciente);
+
+
 
     /**
      * Obtiene todos los controles realizados por un veterinario ordenado por fecha de control.
@@ -66,6 +76,14 @@ public interface BackendService {
      * @return El examen que ha sido localizado
      */
     Control getControl(String identificador);
+
+    /**
+     * Retorna un examen desde el backend, según su identificador
+     *
+     * @param identificador que identifica a un examen como único
+     * @return El examen que ha sido localizado
+     */
+    Examen getExamen(String identificador);
 
     /**
      * Inicializa el backend.
