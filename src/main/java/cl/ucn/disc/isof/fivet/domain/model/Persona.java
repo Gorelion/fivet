@@ -63,14 +63,23 @@ public class Persona extends BaseModel {
     @OrderBy("numero")
     private List<Paciente> pacientes;
 
+    /**
+     * Direccion del paciente
+     */
     @Getter
     @Column
     private String direccion;
 
+    /**
+     * Telefono fijo del paciente
+     */
     @Getter
     @Column
     private Integer fijo;
 
+    /**
+     * Correo electronico del paciente
+     */
     @Getter
     @Column
     private String email;

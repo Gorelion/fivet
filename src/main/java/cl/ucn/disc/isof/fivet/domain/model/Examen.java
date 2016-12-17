@@ -25,16 +25,25 @@ import java.util.Date;
 @Table
 public class Examen extends BaseModel {
 
+    /**
+     * Nombre del examen
+     */
     @Getter
     @NotNull
     @Column
     private String nombre;
 
+    /**
+     * Fecha del examen
+     */
     @Getter
     @NotNull
     @Column
     private Date fecha;
 
+    /**
+     * Resultado del examen
+     */
     @Getter
     @NotNull
     @Column
