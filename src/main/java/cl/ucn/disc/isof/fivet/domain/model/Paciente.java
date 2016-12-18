@@ -72,16 +72,25 @@ public class Paciente extends BaseModel {
     @Column
     private String color;
 
+    /**
+     * Especie del paciente
+     */
     @Getter
     @Setter
     @Column
     private String especie;
 
+    /**
+     * Lista de dueños del paciente
+     */
     @Getter
     @Setter
     @Column
     private List<Persona> personas;
 
+    /**
+     * Lista de controles del paciente
+     */
     @Getter
     @Setter
     @Column

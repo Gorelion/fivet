@@ -11,12 +11,8 @@ import org.junit.*;
 import org.junit.rules.Timeout;
 import org.junit.runners.MethodSorters;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Clase de testing del {@link BackendService}.
@@ -190,16 +186,27 @@ public class TestEbeanBackendService {
     @Test
     public void testPaciente(){
 
+        //se crea el objeto de prueba
         final Paciente paciente = Paciente.builder()
                 .numero(12232)
                 .controles(new ArrayList<>())
                 .build();
 
+        //se inserta en la base de datos
         paciente.insert();
 
+        //se obtiene la lista de todos los pacientes
+        List<Paciente> pacientes = backendService.getPacientes();
+        //la lista no puede ser nula
+        Assert.assertTrue(pacientes != null);
+        //solo debe haber un paciente en la lista
+        Assert.assertTrue(pacientes.size() == 1);
+
+        //se obtiene el paciente con el numero que lo identifica
         final Paciente pacienteBack = backendService.getPaciente(12232);
         Assert.assertNotNull("Can't find Paciente", pacienteBack);
-
+        Assert.assertEquals(pacienteBack.getNumero(),paciente.getNumero());
+        log.debug("Prueba de ingreso de examen exitosa.");
     }
 
     /**
@@ -249,6 +256,9 @@ public class TestEbeanBackendService {
 
     }
 
+    /**
+     * Test operacion de sistema getControlesVeterinario(String rut)
+     */
     @Test
     public void testAgregarControl(){
 
