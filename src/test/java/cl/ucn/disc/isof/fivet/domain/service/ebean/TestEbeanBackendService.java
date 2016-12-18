@@ -253,6 +253,7 @@ public class TestEbeanBackendService {
     public void testAgregarControl(){
 
         {
+            //se crean los objetos de prueba
             final Persona vet = Persona.builder()
                     .rut("19.034.353-7")
                     .nombre("Luis Felipe")
@@ -270,11 +271,38 @@ public class TestEbeanBackendService {
                     .nombre("ito")
                     .build();
 
+            //se agregan los objetos a la base de datos
             vet.insert();
             paciente.insert();
-            control.insert();
 
+            //se agrega el control segun la operacion del sistema
             this.backendService.agregarControl(control,123);
+
+            //obtenemos la lista de controles que hizo Luis Felipe
+            List<Control> controles = backendService.getControlesVeterinario("19.034.353-7");
+            //la lista debe ser no nula
+            Assert.assertTrue(controles != null);
+            //actualmente ha hecho 1 control
+            Assert.assertTrue(controles.size() == 1);
+
+            //se agregara otro objeto control a Luis Felipe
+            final Control otroControl = Control.builder()
+                    .fecha(new java.util.Date())
+                    .identificador("C2")
+                    .veterinario(vet)
+                    .build();
+
+            //se agrega el nuevo control segun la operacion del sistema
+            this.backendService.agregarControl(otroControl,123);
+
+            //se actualiza la lista de controles de Luis Felipe como vet
+            controles = backendService.getControlesVeterinario("19.034.353-7");
+            //la lista debe ser no nula
+            Assert.assertTrue(controles != null);
+            //ahora ha hecho 2 controles
+            Assert.assertTrue(controles.size() == 2);
+
+            log.debug("Operacion del sistema getControlesVeterinario(String rut) exitosa");
 
         }
 
