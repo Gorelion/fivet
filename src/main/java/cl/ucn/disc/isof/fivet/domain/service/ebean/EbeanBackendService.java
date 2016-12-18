@@ -165,7 +165,7 @@ public class EbeanBackendService implements BackendService {
     public List<Paciente> getPacientesPorNombre(String nombre) {
         return this.ebeanServer.find(Paciente.class)
                 .where()
-                .eq("nombre",nombre)
+                .contains("nombre",nombre)
                 .findList();
     }
 

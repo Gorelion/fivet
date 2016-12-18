@@ -321,4 +321,47 @@ public class TestEbeanBackendService {
 
     }
 
+    /**
+     * Test de operacion del sistema getPacientesPorNombre
+     */
+    @Test
+    public void testGetPacientesPorNombre(){
+
+        //se crean los objetos de prueba
+        final Paciente ito = Paciente.builder()
+                .numero(123)
+                .nombre("ito")
+                .build();
+        //insertamos al ito
+        ito.insert();
+
+        final Paciente mia = Paciente.builder()
+                .numero(124)
+                .nombre("mia")
+                .build();
+        //insertamos a la mia
+        mia.insert();
+
+        final Paciente miaito = Paciente.builder()
+                .numero(125)
+                .nombre("mia ito")
+                .build();
+        //insertamos al mia ito
+        miaito.insert();
+
+        //se obtienen los pacientes cuyos nombres contengan la palabra ito
+        List<Paciente> pacientesItoMia = backendService.getPacientesPorNombre("ito");
+        //la lista no debe ser nula
+        Assert.assertTrue(pacientesItoMia != null);
+        //segun lo ingresado, deben haber 2 pacientes en la lista
+        Assert.assertTrue(pacientesItoMia.size() == 2);
+
+        //hacemos print del nombre de los pacientes de la lista
+        for(Paciente paciente : pacientesItoMia){
+            log.debug(paciente.getNombre());
+        }
+        log.debug("Operacion del sistema getPacientesPorNombre(String nombre) exitosa");
+
+    }
+
 }
