@@ -103,6 +103,17 @@ public class EbeanBackendService implements BackendService {
     }
 
     /**
+     * Obtiene el listado de las personas.
+     *
+     * @return the {@link List} of {@link Persona}
+     */
+    @Override
+    public List<Persona> getPersonas() {
+        return this.ebeanServer.find(Persona.class).findList();
+    }
+
+
+    /**
      * Obtiene el listado de los examenes.
      *
      * @return the {@link List} of {@link Paciente}

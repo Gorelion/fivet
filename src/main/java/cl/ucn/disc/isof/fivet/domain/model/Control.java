@@ -64,7 +64,9 @@ public class Control extends BaseModel {
     @Column
     private String diagnostico;
 
-
+    /**
+     * Paciente controlado
+     */
     @Getter
     @Setter
     @Column

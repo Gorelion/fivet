@@ -28,6 +28,13 @@ public interface BackendService {
     List<Paciente> getPacientes();
 
     /**
+     * Obtiene el listado de las personas.
+     *
+     * @return the {@link List} of {@link Persona}
+     */
+    List<Persona> getPersonas();
+
+    /**
      * Obtiene el listado de los examenes.
      *
      * @return the {@link List} of {@link Examen}

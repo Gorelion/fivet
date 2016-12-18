@@ -97,6 +97,13 @@ public class TestEbeanBackendService {
             Assert.assertNotNull("Objeto sin id", persona.getId());
         }
 
+        {
+            //se obtiene la lista de personas
+            List<Persona> personas = backendService.getPersonas();
+            //debe haber solo una persona en la lista
+            Assert.assertTrue(personas.size() == 1);
+        }
+
         // Get from backend v1
         {
             final Persona persona = backendService.getPersona(rut);
@@ -172,6 +179,7 @@ public class TestEbeanBackendService {
             Assert.assertNotNull("Can't find Control", control);
             Assert.assertNotNull("Objeto sin id", control.getId());
             Assert.assertEquals("identificadores deben ser iguales", "identi1", control.getIdentificador());
+            //el control debe ser hecho por un veterinario
             Assert.assertTrue("El control no lo ha hecho un veterinario!", control.getVeterinario().getTipo() == Persona.Tipo.VETERINARIO);
         }
     }
