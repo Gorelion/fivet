@@ -316,9 +316,6 @@ public class TestEbeanBackendService {
 
         }
 
-        final Paciente paciente = this.backendService.getPaciente(123);
-        log.debug("Paciente founded: {}", paciente);
-
     }
 
     /**
